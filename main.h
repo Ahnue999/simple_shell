@@ -12,7 +12,7 @@ typedef struct list_s
 	struct list_s *next;
 } list_t;
 
-char **split_string(const char *, const char *);
+char **split_string(const char *str, const char *delimiter);
 char *_getenv(const char *);
 char *check_exe(char *);
 void print_path(void);
