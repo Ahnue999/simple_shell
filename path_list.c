@@ -5,14 +5,15 @@
   *
   * Return: a pointer to the head.
   */
-list_t *path_list(void)
+list_t *path_list(shdata_t data)
 {
 	char *path;
-	char **path_dirs;
+	char **path_dirs, **env_arr;
 	list_t *head = NULL;
 	int i;
 
-	path = _getenv("PATH");
+	env_arr = list_to_array(data.sh_env);
+	path = _getenv("PATH", env_arr);
 	path_dirs = split_string(path, ":");
 
 	i = 0;

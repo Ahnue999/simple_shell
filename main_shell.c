@@ -14,21 +14,17 @@ int fill_shdata(shdata_t *data)
 	/* yes, it is incomplete */
 	int i;
 
+	data->args = NULL;
 	data->status = 0;
-	for (i = 0; environ[i]; i++)
-		;
-
-	data->sh_env = malloc(sizeof(char *) * i + 1);
-	if (!data->sh_env)
-		exit(1);
+	data->ps_count = 1;
+	data->sh_env = NULL;
 
 	i = 0;
 	while (environ[i])
 	{
-		data->sh_env[i] = strdup(environ[i]);
+		add_node_end(&(data->sh_env), *(environ + i));
 		i++;
 	}
-	data->sh_env[i] = NULL;
 
 	return (0);
 }

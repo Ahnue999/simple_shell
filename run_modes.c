@@ -47,38 +47,34 @@ void non_interactive(char **argv)
  */
 void run_shell(shdata_t *data)
 {
-	char *lineptr = NULL, *exe_path, *cwd = NULL;
+	char *lineptr = NULL, *exe_path;
 	size_t n = 0;
-	int status = 1, child_state, length;
+	int status = 1, child_state;
 	pid_t child_pid;
-	char **args;
 	int (*func)(shdata_t *);
+	char **env_arr;
 
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, signal_handler);
 
 	while (1)
 	{
-		cwd = getcwd(NULL, 4096);
-		length = 0;
-		while (cwd[length])
-			length++;
-		write(STDOUT_FILENO, cwd, length);
-		write(STDOUT_FILENO, "  \\(^~^)/ ", 11);
-		fflush(stdout);
+		prompt();
 		status = getline(&lineptr, &n, stdin);
 		if (status == -1)
 			break;
-		args = split_string(lineptr, "\n ");
-		func = get_builtin(args[0]);
+		if (*lineptr == '\n' && !*(lineptr + 1))
+			continue;
+		data->args = split_string(lineptr, "\n ");
+		func = get_builtin(data);
 		if (func != NULL)
 		{
 			data->status = 0;
-			if (args[1])
-				data->status = atoi(args[1]);
+			if (data->args[1])
+				data->status = atoi(data->args[1]);
 			func(data);
 			continue;
 		}
-		exe_path = check_exe(args[0]);
+		exe_path = check_exe(data->args[0]);
 
 		if (!exe_path)
 		{
@@ -95,7 +91,8 @@ void run_shell(shdata_t *data)
 
 		if (child_pid == 0)
 		{
-			execve(exe_path, args, data->sh_env);
+			env_arr = list_to_array(data->sh_env);
+			execve(exe_path, data->args, env_arr);
 			perror("");
 			_exit(1);
 		}

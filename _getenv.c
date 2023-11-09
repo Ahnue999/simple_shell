@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-extern char **environ;
+#include "main.h"
 
 /**
   * _getenv - gets an enviroment variable.
@@ -9,9 +6,10 @@ extern char **environ;
   *
   * Return: the valuse of the variable.
   */
-char *_getenv(const char *name)
+char *_getenv(const char *name, char **env_arr)
 {
 	int i, j;
+	char *ret;
 
 	if (!name)
 	{
@@ -20,29 +18,29 @@ char *_getenv(const char *name)
 	}
 
 	i = 0;
-	while (environ[i])
+	while (env_arr[i])
 	{
 		j = 0;
 		while (name[j])
 		{
-			if (environ[i][j] != name[j])
+			if (env_arr[i][j] != name[j])
 			{
 				i++;
-				j++;
 				break;
 			}
 			else
 				j++;
 		}
-		if (name[j] == '\0')
+		if (name[j] == '\0' && env_arr[i][j] == '=')
 		{
 			 /* remove the name of variable from the line */
+			ret = strdup(env_arr[i]);
 			while (j + 1)
 			{
-				environ[i]++;
+				ret++;
 				j--;
 			}
-			return (environ[i]);
+			return (ret);
 		}
 	}
 	return (NULL);
