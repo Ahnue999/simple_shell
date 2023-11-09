@@ -11,7 +11,7 @@ int builtin_env(shdata_t *data)
 	int i;
 
 	i = 0;
-	while(data->sh_env)
+	while (data->sh_env)
 	{
 		for (i = 0; data->sh_env->str[i] != '\0'; i++)
 			;
