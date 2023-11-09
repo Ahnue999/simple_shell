@@ -46,7 +46,7 @@ int main(void)
 		{
 			execve(exe_path, args, environ);
 			perror("execve failed");
-			_exit(1);
+			shell_exit(1);
 		}
 		else
 			wait(&child_state);

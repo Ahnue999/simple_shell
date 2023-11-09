@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <unistd.h>
 
 typedef struct list_s
 {
@@ -19,5 +19,7 @@ void print_path(void);
 void print_list(list_t *);
 list_t *path_list();
 list_t *add_node_end(list_t **, char *);
+ssize_t _getline(char **buffer, size_t *len, int fd);
+void shell_exit(int status, int args, char **argv);
 
 #endif
