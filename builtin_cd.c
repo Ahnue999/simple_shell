@@ -3,7 +3,7 @@
 /**
  * builtin_cd - change current working directory.
  * @data: the shell data.
- * 
+ *
  * Return: 0 when success.
  */
 int builtin_cd(shdata_t *data)
@@ -27,7 +27,7 @@ int builtin_cd(shdata_t *data)
 			perror("");
 	}
 
-	else if (chdir(data->args[1]) == - 1)
+	else if (chdir(data->args[1]) == -1)
 		perror("");
 
 	return (0);
