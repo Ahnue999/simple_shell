@@ -1,57 +1,56 @@
 #include "main.h"
-#include <unistd.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
 
 extern char **environ;
 
 /**
+ * fill_shdata - fills the shdata_t structure.
+ * @data: the empty structure.
+ * @argv: main arguments.
+ *
+ * Return: 0 when succes and 1 otherwise.
+ */
+int fill_shdata(shdata_t *data)
+{
+	/* yes, it is incomplete */
+	int i;
+
+	data->status = 0;
+	for (i = 0; environ[i]; i++)
+		;
+
+	data->sh_env = malloc(sizeof(char *) * i + 1);
+	if (!data->sh_env)
+		exit(1);
+
+	i = 0;
+	while (environ[i])
+	{
+		data->sh_env[i] = strdup(environ[i]);
+		i++;
+	}
+	data->sh_env[i] = NULL;
+
+	return (0);
+}
+
+/**
  * main - entry point.
+ * @argc: arguments count.
+ * @argv: arguments vector.
+ *
  * Return: always 0.
  */
-int main(void)
+int main(__attribute__((unused)) int argc, char **argv)
 {
-	char *lineptr = NULL, *exe_path;
-	size_t n = 0;
-	int status = 1, child_state;
-	pid_t child_pid;
-	char **args;
+	shdata_t data;
 
-	signal(SIGINT, SIG_IGN);
-
-	while (1)
+	fill_shdata(&data);
+	if (argc > 1)
 	{
-		write(STDOUT_FILENO, "\\(*_*)/ ", 9);
-		fflush(stdout);
-		status = getline(&lineptr, &n, stdin);
-		if (status == -1)
-			break;
-		args = split_string(lineptr, "\n ");
-		exe_path = check_exe(args[0]);
-
-		if (!exe_path)
-		{
-			perror("");
-			continue;
-		}
-
-		child_pid = fork();
-		if (child_pid == -1)
-		{
-			perror("fork failed");
-			return (1);
-		}
-
-		if (child_pid == 0)
-		{
-			execve(exe_path, args, environ);
-			perror("execve failed");
-			shell_exit(1);
-		}
-		else
-			wait(&child_state);
+		non_interactive(argv);
+		return (0);
 	}
 
-	free(lineptr);
+	run_shell(&data);
 	return (0);
 }
