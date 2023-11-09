@@ -23,6 +23,7 @@ typedef struct shdata_s
 	int ps_count;
 	int status;
 	int pid;
+	int setenv_flag;
 } shdata_t;
 
 
@@ -42,6 +43,8 @@ int (*get_builtin(char *command))(shdata_t *);
 int builtin_exit(shdata_t *data);
 int builtin_env(shdata_t *data);
 int builtin_cd(shdata_t *data);
+int builtin_setenv(shdata_t *data);
+int builtin_unsetenv(shdata_t *data);
 
 /* list manegment */
 void free_list(list_t **head);
@@ -51,8 +54,6 @@ int delete_node_at_index(list_t **head, unsigned int index);
 list_t *insert_node(list_t **head, unsigned int idx, char * string);
 
 
-int _setenv(const char *, const char *, unsigned int, char *);
-int _unsetenv(const char *, unsigned int);
 char *_getenv(const char *, char **);
 char *check_exe(char *);
 void print_path(void);
