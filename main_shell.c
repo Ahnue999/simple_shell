@@ -7,13 +7,15 @@ extern char **environ;
 
 /**
  * main - entry point.
+ * @argc: arguments count.
+ * @argv: arguments vector.
+ *
  * Return: always 0.
  */
 int main(int argc, char **argv)
 {
 	shdata data;
-	char **av;
-	fill_shdata(
+	fill_shdata(&data, argv);
 
 	run_shell(&data);
 }
