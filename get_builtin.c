@@ -16,9 +16,10 @@ int (*get_builtin(char *command))(shdata_t *)
 	};
 	int i;
 
-	while (functions[i])
+	i = 0;
+	while (functions[i].name)
 	{
-		if (_strcmp(command, functions[i].name))
+		if (_strcmp(command, functions[i].name) == 0)
 			break;
 		i++;
 	}

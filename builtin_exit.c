@@ -6,8 +6,8 @@
  * 
  * Return: 0 when success.
  */
-int builtin_exit(shdata_t *data)
+int builtin_exit(__attribute__((unused)) shdata_t *data)
 {
-	exit(9);
+	printf("im exit\n");
 	return (0);
 }

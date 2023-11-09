@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 
 typedef struct shdata_s
@@ -22,7 +23,7 @@ typedef struct list_s
 typedef struct builtin_func_s
 {
 	char *name;
-	void (*func)(shdata_t *);
+	int (*func)(shdata_t *);
 } builtin_funcs_t;
 
 /* string functions */
@@ -40,5 +41,8 @@ void print_path(void);
 void print_list(list_t *);
 list_t *path_list();
 list_t *add_node_end(list_t **, char *);
+void run_shell(shdata_t *);
+void non_interactive(char **argv);
+int fill_shdata(shdata_t *);
 
 #endif

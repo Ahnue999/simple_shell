@@ -12,7 +12,7 @@ extern char **environ;
  *
  * Return: a filled shdata structure.
  */
-int fill_shdata(shdata *data, char **argv)
+int fill_shdata(shdata_t *data)
 {
 	int i;
 
@@ -20,7 +20,7 @@ int fill_shdata(shdata *data, char **argv)
 		;
 
 	data->sh_env = malloc(sizeof(char *) * i + 1);
-	if (!sh_env)
+	if (!data->sh_env)
 		exit(1);
 
 	i = 0;
@@ -36,32 +36,37 @@ int fill_shdata(shdata *data, char **argv)
 
 /**
  * non_interactive : runs the shell in non-interactive mode.
- * @data: shell data.
+ * argv: arguments vector.
  *
  * Return: void.
  */
 
-void non_interactive(int argc, char **argv)
+void non_interactive(char **argv)
 {
+	char *exe_path;
+	int child_state;
+	pid_t child_pid;
+
+	argv++;
 	exe_path = check_exe(argv[0]);
 
 	if (!exe_path)
 	{
 		perror("");
-		continue;
+		exit(1);
 	}
 
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		perror("fork failed");
-		return (1);
+		perror("");
+		exit(1);
 	}
 
 	if (child_pid == 0)
 	{
 		execve(exe_path, argv, environ);
-		perror("execve failed");
+		perror("");
 		_exit(1);
 	}
 	else
@@ -75,19 +80,19 @@ void non_interactive(int argc, char **argv)
  *
  * Return: always 0.
  */
-int main(int argc, char **argv)
+int main(__attribute__((unused)) int argc, char **argv)
 {
 	shdata_t data;
 
-
-	if (!isatty(STDIN_FILENO))
+	fill_shdata(&data);
+	if (argc > 1)
 	{
 		non_interactive(argv);
 		return (0);
 	}
 
-	fill_shdata(&data, argv);
 	run_shell(&data);
+	return (0);
 }
 
 /**
@@ -103,6 +108,7 @@ void run_shell(shdata_t *data)
 	int status = 1, child_state;
 	pid_t child_pid;
 	char **args;
+	int (*func)(shdata_t *);
 
 	signal(SIGINT, SIG_IGN);
 
@@ -114,6 +120,12 @@ void run_shell(shdata_t *data)
 		if (status == -1)
 			break;
 		args = split_string(lineptr, "\n ");
+		func = get_builtin(lineptr);
+		if (func != NULL)
+		{
+			func(data);
+			exit(0);
+		}
 		exe_path = check_exe(args[0]);
 
 		if (!exe_path)
@@ -125,14 +137,14 @@ void run_shell(shdata_t *data)
 		child_pid = fork();
 		if (child_pid == -1)
 		{
-			perror("fork failed");
-			return (1);
+			perror("");
+			exit(1);
 		}
 
 		if (child_pid == 0)
 		{
-			execve(exe_path, args, environ);
-			perror("execve failed");
+			execve(exe_path, args, data->sh_env);
+			perror("");
 			_exit(1);
 		}
 		else
@@ -140,5 +152,4 @@ void run_shell(shdata_t *data)
 	}
 
 	free(lineptr);
-	return (0);
 }
