@@ -58,11 +58,13 @@ char *check_exe(char *);
 void print_path(void);
 void print_list(list_t *);
 list_t *path_list();
+list_t *add_node_end(list_t **, char *);
+ssize_t _getline(char **lineptrr, size_t *n, FILE *stream);
+void shell_exit(int status, int args, char **argv);
 void run_shell(shdata_t *);
 void non_interactive(char **argv);
 int fill_shdata(shdata_t *);
 void signal_handler();
 void prompt();
-
 
 #endif
