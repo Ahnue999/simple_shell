@@ -16,8 +16,6 @@ int (*get_builtin(shdata_t *data))(shdata_t *)
 		{"setenv", builtin_setenv},
 		{"unsetenv", builtin_unsetenv},
 		{NULL, NULL}
-		{NULL, NULL}
-		{NULL, NULL}
 	};
 	int i;
 

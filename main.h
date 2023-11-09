@@ -39,7 +39,7 @@ char **split_string(const char *str, const char *delimiter);
 int _atoi(char *s);
 
 /* built-in functions */
-int (*get_builtin(char *command))(shdata_t *);
+int (*get_builtin(shdata_t *))(shdata_t *);
 int builtin_exit(shdata_t *data);
 int builtin_env(shdata_t *data);
 int builtin_cd(shdata_t *data);
@@ -54,6 +54,7 @@ int delete_node_at_index(list_t **head, unsigned int index);
 list_t *insert_node(list_t **head, unsigned int idx, char * string);
 
 
+int search_array(char *, char **);
 char *_getenv(const char *, char **);
 char *check_exe(char *);
 void print_path(void);

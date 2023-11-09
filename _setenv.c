@@ -9,13 +9,13 @@
   *
   * Return: 0 when success and -1 otherwise.
   */
-int builtin_setenv(shdata *data)
+int builtin_setenv(shdata_t *data)
 {
 	char *name, *value;
 	int index;
 	char *new;
 
-	if (!args[1] || !args[2])
+	if (!data->args[1] || !data->args[2])
 	{
 		write(STDERR_FILENO, "Error", 5);
 		return (-1);
@@ -25,9 +25,10 @@ int builtin_setenv(shdata *data)
 	value = strdup(data->args[2]);
 	index = search_array(name, list_to_array(data->sh_env));
 
-	*new = strcat(name);
-	*new = strcat(=);
-	*new = strcat(value);
+	new = NULL;
+	strcat(new, name);
+	strcat(new, "=");
+	strcat(new, value);
 
 	if (index == -1)
 	{
@@ -35,10 +36,10 @@ int builtin_setenv(shdata *data)
 	}
 	else
 	{
-		if (overwrite)
+		if (data->setenv_flag)
 		{
-			delete_node_at_index(&(data->sh_env), i);
-			insert_node(&(data->sh_env), i - 1, new);
+			delete_node_at_index(&(data->sh_env), index);
+			insert_node(&(data->sh_env), index - 1, new);
 		}
 	}
 
@@ -53,12 +54,12 @@ int builtin_setenv(shdata *data)
   *
   * Return: 0 when success and -1 otherwise.
   */
-int unsetenv(shdata *data)
+int builtin_unsetenv(shdata_t *data)
 {
 	int index;
 	char *name;
 
-	if (!args[1])
+	if (!data->args[1])
 	{
 		write(STDERR_FILENO, "ERROR", 5);
 		return (-1);
@@ -84,6 +85,8 @@ int unsetenv(shdata *data)
  */
 int search_array(char *string, char **env_arr)
 {
+	int i, j;
+
 	i = 0;
 	while (env_arr[i])
 	{

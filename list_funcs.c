@@ -86,7 +86,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
  */
 list_t *insert_node(list_t **head, unsigned int idx, char * string)
 {
-	int i;
+	unsigned int i;
 	list_t *ptr, *new;
 
 	ptr = *head;
@@ -107,7 +107,7 @@ list_t *insert_node(list_t **head, unsigned int idx, char * string)
 	new->str = strdup(string);
 	new->next = NULL;
 
-	if (idx = 0)
+	if (idx == 0)
 	{
 		new->next = *head;
 		*head = new;
