@@ -8,7 +8,7 @@
 
 typedef struct shdata_s
 {
-	char **argvec;
+	char **argv;
 	char **sh_env;
 	int pid;
 } shdata_t;
