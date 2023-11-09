@@ -9,7 +9,22 @@ extern char **environ;
  * main - entry point.
  * Return: always 0.
  */
-int main(void)
+int main(int argc, char **argv)
+{
+	shdata data;
+	char **av;
+	fill_shdata(
+
+	run_shell(&data);
+}
+
+/**
+ * run_shell - runs the prompt loop.
+ * shdata: data of the shell.
+ *
+ * Return: void.
+ */
+void run_shell(shdata_t *data)
 {
 	char *lineptr = NULL, *exe_path;
 	size_t n = 0;
