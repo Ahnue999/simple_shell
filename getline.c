@@ -43,17 +43,30 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	return (new_ptr);
 }
 
+/**
+  * _fileno - custom fileno function
+  * @stream: sttream
+  * Return: file descriptor
+  */
 int _fileno(FILE *stream)
 {
 	if (stream == NULL)
 		return (-1);
 
-	return stream->_fileno;
+	return (stream->_fileno);
 }
 
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+/**
+  * _getline - reads an entire line from stream
+  * @lineptr: pointer to a pointer to a block of memory
+  * @n: size of the block
+  * @stream: stream of data to read from
+  * Return: number of characters read or -1 if it fails
+  */
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
-	static char *buffer = NULL;
+	static char *buffer;
 	static size_t index;
 	ssize_t bytes_read;
 	int fd;
@@ -73,7 +86,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	{
 		if (index == 0)
 		{
-			bytes_read = read(fd, &buffer[index], *n);      
+			bytes_read = read(fd, &buffer[index], *n);
 			if (bytes_read == -1 || bytes_read == 0)
 				return (-1);
 		}
@@ -85,8 +98,8 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 			index++;
 			if (index >= *n)
 			{
-				*n *= 2; /* Double the size of the buffer */      
-				buffer = _realloc(buffer, index, index + 1);      
+				*n *= 2; /* Double the size of the buffer */
+				buffer = _realloc(buffer, index, index + 1);
 				if (buffer == NULL)
 					return (-1);
 			}
