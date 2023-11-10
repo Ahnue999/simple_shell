@@ -2,7 +2,7 @@
 
 /**
   * path_list - makes a linked list of the PATH directories.
-  *
+  * @data: shell data
   * Return: a pointer to the head.
   */
 list_t *path_list(shdata_t data)
