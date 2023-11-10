@@ -1,5 +1,6 @@
 #include "main.h"
 
+char **split_string(const char *str, const char *delimiter);
 /**
   * split_string - function that splits a string of words into tokens
   * @str: string to split
