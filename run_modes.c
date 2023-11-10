@@ -108,5 +108,6 @@ void run_shell(shdata_t *data)
 		}
 	}
 
+	data->ps_count++;
 	free(lineptr);
 }

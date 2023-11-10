@@ -16,7 +16,7 @@ int fill_shdata(shdata_t *data)
 
 	data->args = NULL;
 	data->status = 0;
-	data->ps_count = 1;
+	data->ps_count = 0;
 	data->sh_env = NULL;
 	data->setenv_flag = 1;
 
