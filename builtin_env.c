@@ -9,16 +9,18 @@
 int builtin_env(shdata_t *data)
 {
 	int i;
+	list_t *ptr = data->sh_env;
 
 	i = 0;
-	while (data->sh_env)
+	while (ptr)
 	{
-		for (i = 0; data->sh_env->str[i] != '\0'; i++)
+		for (i = 0; ptr->str[i] != '\0'; i++)
 			;
-		write(STDOUT_FILENO, data->sh_env->str, i + 1);
+		write(STDOUT_FILENO, ptr->str, i + 1);
 		write(STDOUT_FILENO, "\n", 1);
-		data->sh_env = data->sh_env->next;
+		ptr = ptr->next;
 	}
 
+	free(ptr);
 	return (0);
 }

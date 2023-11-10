@@ -146,14 +146,15 @@ char **list_to_array(list_t *head)
 	arr = malloc(sizeof(char *) * i + 1);
 
 	i = 0;
-	while (head)
+	tmp = head;
+	while (tmp)
 	{
-		arr[i] = strdup(head->str);
-		head = head->next;
+		arr[i] = strdup(tmp->str);
+		tmp = tmp->next;
 		i++;
 	}
-	arr[i] = NULL;
 
+	arr[i] = NULL;
 	return (arr);
 }
 

@@ -56,7 +56,7 @@ list_t *insert_node(list_t **head, unsigned int idx, char * string);
 
 int search_array(char *, char **);
 char *_getenv(const char *, char **);
-char *check_exe(char *);
+char *check_exe(char *, list_t *);
 void print_path(void);
 void print_list(list_t *);
 list_t *path_list();
@@ -64,9 +64,10 @@ list_t *add_node_end(list_t **, char *);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void shell_exit(int status, int args, char **argv);
 void run_shell(shdata_t *);
-void non_interactive(char **argv);
+void non_interactive(char **argv, shdata_t *);
 int fill_shdata(shdata_t *);
 void signal_handler();
 void prompt();
+char **check_symbols(char *);
 
 #endif

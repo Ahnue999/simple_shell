@@ -44,7 +44,7 @@ int main(__attribute__((unused)) int argc, char **argv)
 	fill_shdata(&data);
 	if (argc > 1)
 	{
-		non_interactive(argv);
+		non_interactive(argv, &data);
 		return (0);
 	}
 

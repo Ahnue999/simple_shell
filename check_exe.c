@@ -8,7 +8,7 @@
  * Return: the absolute path of the executable or NULL
  * if it doesn't exist.
  */
-char *check_exe(char *filename)
+char *check_exe(char *filename, list_t *env)
 {
 	char **path_dirs;
 	char *path, *tmp;
@@ -18,7 +18,7 @@ char *check_exe(char *filename)
 	if (!stat(filename, &st))
 		return (filename);
 
-	path = getenv("PATH");
+	path = _getenv("PATH", list_to_array(env));
 	path_dirs = split_string(path, ":");
 
 	i = 0;
@@ -33,5 +33,6 @@ char *check_exe(char *filename)
 		}
 		i++;
 	}
+	free(tmp);
 	return (NULL);
 }

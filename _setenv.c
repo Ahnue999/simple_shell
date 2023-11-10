@@ -1,14 +1,14 @@
 #include "main.h"
 
 /**
-  * _setenv - adds an environment variable.
-  * @name: name of the environmental variable.
-  * @value: the valuse of the variable.
-  * @overwrite: if set to 0 then don't overwrite, otherwise do.
-  * data: shell data.
-  *
-  * Return: 0 when success and -1 otherwise.
-  */
+ * _setenv - adds an environment variable.
+ * @name: name of the environmental variable.
+ * @value: the valuse of the variable.
+ * @overwrite: if set to 0 then don't overwrite, otherwise do.
+ * data: shell data.
+ *
+ * Return: 0 when success and -1 otherwise.
+ */
 int builtin_setenv(shdata_t *data)
 {
 	char *name, *value;
@@ -25,7 +25,10 @@ int builtin_setenv(shdata_t *data)
 	value = strdup(data->args[2]);
 	index = search_array(name, list_to_array(data->sh_env));
 
-	new = NULL;
+	new = malloc(sizeof(char) * 1024);
+	if (!new)
+		return (-1);
+
 	strcat(new, name);
 	strcat(new, "=");
 	strcat(new, value);
@@ -39,21 +42,23 @@ int builtin_setenv(shdata_t *data)
 		if (data->setenv_flag)
 		{
 			delete_node_at_index(&(data->sh_env), index);
-			insert_node(&(data->sh_env), index - 1, new);
+			insert_node(&(data->sh_env), index, new);
 		}
 	}
 
 	free(new);
+	free(name);
+	free(value);
 	return (0);
 }
 
 /**
-  * unsetenv - deletes an environmental variable.
-  * @name: name of the variable.
-  * @data: shell data.
-  *
-  * Return: 0 when success and -1 otherwise.
-  */
+ * unsetenv - deletes an environmental variable.
+ * @name: name of the variable.
+ * @data: shell data.
+ *
+ * Return: 0 when success and -1 otherwise.
+ */
 int builtin_unsetenv(shdata_t *data)
 {
 	int index;
