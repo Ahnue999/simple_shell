@@ -69,5 +69,6 @@ int fill_shdata(shdata_t *);
 void signal_handler();
 void prompt();
 char **check_symbols(char *);
+char *_strdup(const char *str);
 
 #endif
