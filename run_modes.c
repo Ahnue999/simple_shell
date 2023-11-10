@@ -1,9 +1,10 @@
 #include "main.h"
 
+void non_interactive(char **argv, shdata_t *data);
 /**
- * non_interactive : runs the shell in non-interactive mode.
- * argv: arguments vector.
- *
+ * non_interactive - runs the shell in non-interactive mode.
+ * @argv: arguments vector.
+ * @data: data
  * Return: void.
  */
 void non_interactive(char **argv, shdata_t *data)
@@ -41,7 +42,7 @@ void non_interactive(char **argv, shdata_t *data)
 
 /**
  * run_shell - runs the prompt loop.
- * shdata: data of the shell.
+ * @data: data of the shell.
  *
  * Return: void.
  */

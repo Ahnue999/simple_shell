@@ -84,7 +84,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
  *
  * Return: a pointer to the inserted node.
  */
-list_t *insert_node(list_t **head, unsigned int idx, char * string)
+list_t *insert_node(list_t **head, unsigned int idx, char *string)
 {
 	unsigned int i;
 	list_t *ptr, *new;
@@ -124,7 +124,6 @@ list_t *insert_node(list_t **head, unsigned int idx, char * string)
 
 /**
   * list_to_array - fills an array with a list contnets.
-  * @arr: the array to fill.
   * @head: the list head.
   *
   * Return: the filled array.

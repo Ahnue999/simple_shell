@@ -3,13 +3,13 @@
 /**
  * get_builtin - checks if the command is built in
  * and fetch its function.
- * @command: the name of the command.
+ * @data: the name of the command.
  *
  * Return: a pointer to the built in function.
  */
 int (*get_builtin(shdata_t *data))(shdata_t *)
 {
-	builtin_funcs_t functions [] = {
+	builtin_funcs_t functions[] = {
 		{"exit", builtin_exit},
 		{"env", builtin_env},
 		{"cd", builtin_cd},

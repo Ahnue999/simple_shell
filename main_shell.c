@@ -1,11 +1,8 @@
 #include "main.h"
 
-extern char **environ;
-
 /**
  * fill_shdata - fills the shdata_t structure.
  * @data: the empty structure.
- * @argv: main arguments.
  *
  * Return: 0 when succes and 1 otherwise.
  */

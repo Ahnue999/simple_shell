@@ -5,7 +5,7 @@
   *
   * Return: no return.
   */
-void signal_handler()
+void signal_handler(void)
 {
 	write(STDOUT_FILENO, "\n", 1);
 	prompt();

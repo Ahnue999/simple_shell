@@ -1,11 +1,8 @@
 #include "main.h"
 
 /**
- * _setenv - adds an environment variable.
- * @name: name of the environmental variable.
- * @value: the valuse of the variable.
- * @overwrite: if set to 0 then don't overwrite, otherwise do.
- * data: shell data.
+ * builtin_setenv - adds an environment variable.
+ * @data: shell data.
  *
  * Return: 0 when success and -1 otherwise.
  */
@@ -53,8 +50,7 @@ int builtin_setenv(shdata_t *data)
 }
 
 /**
- * unsetenv - deletes an environmental variable.
- * @name: name of the variable.
+ * builtin_unsetenv - deletes an environmental variable.
  * @data: shell data.
  *
  * Return: 0 when success and -1 otherwise.
@@ -83,7 +79,7 @@ int builtin_unsetenv(shdata_t *data)
 /**
  * search_array - search if a string exist in an array.
  * @string: string to find.
- * @head: list head pointer.
+ * @env_arr: list head pointer.
  *
  * Return: the index of the string if exist or -1 if it
  * doesn't.

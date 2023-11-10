@@ -4,7 +4,7 @@
 /**
  * check_exe - checks if an executable exists in PATH.
  * @filename: the name of the executable.
- *
+ * @env: environment variable
  * Return: the absolute path of the executable or NULL
  * if it doesn't exist.
  */

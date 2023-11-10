@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
-  * check_symbol - checks for ";" and "#".
-  * @str: the string to check.
+  * check_symbols - checks for ";" and "#".
+  * @string: the string to check.
   *
   * Return: an array of commands.
   */

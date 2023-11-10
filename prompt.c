@@ -5,7 +5,7 @@
  *
  * Return: no thing.
  */
-void prompt()
+void prompt(void)
 {
 	int length;
 	char *cwd;
