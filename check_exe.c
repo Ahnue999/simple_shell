@@ -24,7 +24,7 @@ char *check_exe(char *filename, list_t *env)
 	i = 0;
 	while (path_dirs[i])
 	{
-		tmp = strdup(path_dirs[i]);
+		tmp = _strdup(path_dirs[i]);
 		tmp = strcat(tmp, "/");
 		tmp = strcat(tmp, filename);
 		if (!stat(tmp, &st))
