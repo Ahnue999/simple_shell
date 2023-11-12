@@ -19,11 +19,11 @@ char **split_string(const char *str, const char *delimiter)
 
 	/* Figure out how many words are in str */
 	word_count = 0;
-	token = strtok(str_copy1, delimiter);
+	token = _strtok(str_copy1, delimiter);
 	while (token != NULL)
 	{
 		word_count++;
-		token = strtok(NULL, delimiter);
+		token = _strtok(NULL, delimiter);
 	}
 
 	/*
@@ -35,7 +35,7 @@ char **split_string(const char *str, const char *delimiter)
 		return (NULL);
 
 	/* Use strtok to get each word and add it to your array */
-	token = strtok(str_copy2, delimiter);
+	token = _strtok(str_copy2, delimiter);
 	index = 0;
 	while (token != NULL)
 	{
@@ -43,7 +43,7 @@ char **split_string(const char *str, const char *delimiter)
 		if (str_array[index] == NULL)
 			return (NULL);
 		index++;
-		token = strtok(NULL, delimiter);
+		token = _strtok(NULL, delimiter);
 	}
 	str_array[word_count] = NULL;
 
@@ -139,8 +139,6 @@ int _atoi(char *s)
 	return (oi * pn);
 }
 
-#include "main.h"
-
 /**
  * _strcat - concatenates two strings
  * @str1: string to add to
@@ -149,7 +147,7 @@ int _atoi(char *s)
  */
 char *_strcat(char *str1, const char *str2)
 {
-	int index1 = 0, int index2 = 0;
+	int index1 = 0, index2 = 0;
 
 	while (str1[index1] != '\0')
 		index1++;
@@ -162,8 +160,6 @@ char *_strcat(char *str1, const char *str2)
 	return (str1);
 }
 
-#include "main.h"
-
 /**
  * _strchr - returns a character in a string
  * @s: string
@@ -171,22 +167,20 @@ char *_strcat(char *str1, const char *str2)
  * Return: pointer to the character or NULL
  */
 
-char *_strchr(char *s, char c)
+char *_strchr(const char *str, char c)
 {
 	int index = 0;
 
-	while (s[index] != '\0')
+	while (str[index] != '\0')
 	{
-		if (s[index] == c)
+		if (str[index] == c)
 		{
-			return (&s[index]);
+			return (&str[index]);
 		}
 		index++;
 	}
 	return (NULL);
 }
-
-#include "main.h"
 
 /**
  * _strtok - breaks a string into a sequesnce of
