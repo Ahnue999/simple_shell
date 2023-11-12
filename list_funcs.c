@@ -15,7 +15,7 @@ list_t *add_node_end(list_t **head, char *str)
 	if (!new)
 		return (NULL);
 
-	new->str = strdup(str);
+	new->str = _strdup(str);
 	new->next = NULL;
 
 	temp = *head;
@@ -104,7 +104,7 @@ list_t *insert_node(list_t **head, unsigned int idx, char *string)
 	if (!new)
 		return (NULL);
 
-	new->str = strdup(string);
+	new->str = _strdup(string);
 	new->next = NULL;
 
 	if (idx == 0)
@@ -148,7 +148,7 @@ char **list_to_array(list_t *head)
 	tmp = head;
 	while (tmp)
 	{
-		arr[i] = strdup(tmp->str);
+		arr[i] = _strdup(tmp->str);
 		tmp = tmp->next;
 		i++;
 	}

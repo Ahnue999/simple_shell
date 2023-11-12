@@ -11,7 +11,7 @@ char **check_symbols(char *string)
 	char **cmd_arr;
 	int i = 0;
 
-	while(string[i])
+	while (string[i])
 	{
 		if (string[i] == '#')
 		{

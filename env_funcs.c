@@ -1,6 +1,52 @@
 #include "main.h"
 
 /**
+  * _getenv - gets an enviroment variable.
+  * @name: the name of the variable.
+  * @env_arr: environment list
+  * Return: the valuse of the variable.
+  */
+char *_getenv(const char *name, char **env_arr)
+{
+	int i, j;
+	char *ret;
+
+	if (!name)
+	{
+		printf("No Name Provided");
+		exit(99);
+	}
+
+	i = 0;
+	while (env_arr[i])
+	{
+		j = 0;
+		while (name[j])
+		{
+			if (env_arr[i][j] != name[j])
+			{
+				i++;
+				break;
+			}
+			else
+				j++;
+		}
+		if (name[j] == '\0' && env_arr[i][j] == '=')
+		{
+			 /* remove the name of variable from the line */
+			ret = _strdup(env_arr[i]);
+			while (j + 1)
+			{
+				ret++;
+				j--;
+			}
+			return (ret);
+		}
+	}
+	return (NULL);
+}
+
+/**
  * builtin_setenv - adds an environment variable.
  * @data: shell data.
  *
@@ -18,8 +64,8 @@ int builtin_setenv(shdata_t *data)
 		return (-1);
 	}
 
-	name = strdup(data->args[1]);
-	value = strdup(data->args[2]);
+	name = _strdup(data->args[1]);
+	value = _strdup(data->args[2]);
 	index = search_array(name, list_to_array(data->sh_env));
 
 	new = malloc(sizeof(char) * 1024);
