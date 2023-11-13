@@ -2,11 +2,11 @@
 
 char **split_string(const char *str, const char *delimiter);
 /**
-  * split_string - function that splits a string of words into tokens
-  * @str: string to split
-  * @delimiter: delimiters
-  * Return: tokens of words
-  */
+ * split_string - function that splits a string of words into tokens
+ * @str: string to split
+ * @delimiter: delimiters
+ * Return: tokens of words
+ */
 char **split_string(const char *str, const char *delimiter)
 {
 	int word_count = 0;
@@ -19,11 +19,11 @@ char **split_string(const char *str, const char *delimiter)
 
 	/* Figure out how many words are in str */
 	word_count = 0;
-	token = strtok(str_copy1, delimiter);
+	token = _strtok(str_copy1, delimiter);
 	while (token != NULL)
 	{
 		word_count++;
-		token = strtok(NULL, delimiter);
+		token = _strtok(NULL, delimiter);
 	}
 
 	/*
@@ -35,7 +35,7 @@ char **split_string(const char *str, const char *delimiter)
 		return (NULL);
 
 	/* Use strtok to get each word and add it to your array */
-	token = strtok(str_copy2, delimiter);
+	token = _strtok(str_copy2, delimiter);
 	index = 0;
 	while (token != NULL)
 	{
@@ -43,7 +43,7 @@ char **split_string(const char *str, const char *delimiter)
 		if (str_array[index] == NULL)
 			return (NULL);
 		index++;
-		token = strtok(NULL, delimiter);
+		token = _strtok(NULL, delimiter);
 	}
 	str_array[word_count] = NULL;
 
@@ -74,10 +74,10 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
-  * _strdup - duplicates a string
-  * @str: string to duplicate
-  * Return: a pointer to the duplicated string
-  */
+ * _strdup - duplicates a string
+ * @str: string to duplicate
+ * Return: a pointer to the duplicated string
+ */
 char *_strdup(const char *str)
 {
 	int len, index;
@@ -137,4 +137,83 @@ int _atoi(char *s)
 		m /= 10;
 	}
 	return (oi * pn);
+}
+
+/**
+ * _strcat - concatenates two strings
+ * @str1: string to add to
+ * @str2: string to append
+ * Return: the concatenated string
+ */
+char *_strcat(char *str1, const char *str2)
+{
+	int index1 = 0, index2 = 0;
+
+	while (str1[index1] != '\0')
+		index1++;
+
+	while (str2[index2])
+		str1[index1++] = str2[index2++];
+
+	str1[index1] = '\0';
+
+	return (str1);
+}
+
+/**
+ * _strchr - returns a character in a string
+ * @s: string
+ * @c: character
+ * Return: pointer to the character or NULL
+ */
+
+char *_strchr(const char *str, char c)
+{
+	int index = 0;
+
+	while (str[index] != '\0')
+	{
+		if (str[index] == c)
+		{
+			return (&str[index]);
+		}
+		index++;
+	}
+	return (NULL);
+}
+
+/**
+ * _strtok - breaks a string into a sequesnce of
+ more non-empty tokens
+ * @str: string to be parsed
+ * @delim: delimits the tokens in the parsed string
+ * Return: a pointer to the next token or
+ NULL if there are no more tokens
+ */
+char *_strtok(char *str, const char *delim)
+{
+	static char *next_token;
+	int index;
+
+	if (str == NULL && next_token == NULL)
+		return (NULL);
+
+	if (str == NULL)
+		str = next_token;
+
+	index = 0;
+	while (str[index] != '\0')
+	{
+		if (_strchr(delim, str[index]) != NULL)
+		{
+			str[index] = '\0';
+			next_token = &str[index + 1];
+			break;
+		}
+		index++;
+	}
+	if (str[index] == '\0')
+		next_token = NULL;
+
+	return (str);
 }
