@@ -72,16 +72,12 @@ void non_interactive(char **argv, shdata_t *);
 int fill_shdata(shdata_t *);
 void signal_handler();
 void prompt();
-<<<<<<< HEAD
 char **check_symbols(char *, shdata_t *);
 char *expand(char *, int *, char, shdata_t *);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-=======
-char **check_symbols(char *);
 char *_strdup(const char *str);
 char *_strcat(char *str1, const char *str2);
-char *_strchr(char *s, char c);
+char *_strchr(const char *s, char c);
 char *_strtok(char *str, const char *delim);
->>>>>>> dd6093bcabd0c9d1859dcd3dc50441f6eacd8398
 
 #endif
