@@ -31,7 +31,8 @@ void non_interactive(char **argv, shdata_t *data)
 
 	if (child_pid == 0)
 	{
-		execve(exe_path, argv, environ);
+		data->pid = getpid();
+		execve(exe_path, argv, list_to_array(data->sh_env));
 		perror("");
 		_exit(1);
 	}
@@ -53,7 +54,7 @@ void run_shell(shdata_t *data)
 	int status = 1, child_state, count;
 	pid_t child_pid;
 	int (*func)(shdata_t *);
-	char **env_arr, **cmd_arr;
+	char **cmd_arr;
 
 	signal(SIGINT, signal_handler);
 
@@ -65,7 +66,7 @@ void run_shell(shdata_t *data)
 			break;
 		if (*lineptr == '\n' && !*(lineptr + 1))
 			continue;
-		cmd_arr = check_symbols(lineptr);
+		cmd_arr = check_symbols(lineptr, data);
 		count = 0;
 		while (cmd_arr[count])
 		{
@@ -98,8 +99,7 @@ void run_shell(shdata_t *data)
 
 			if (child_pid == 0)
 			{
-				env_arr = list_to_array(data->sh_env);
-				execve(exe_path, data->args, env_arr);
+				execve(exe_path, data->args, list_to_array(data->sh_env));
 				perror("");
 				_exit(1);
 			}
