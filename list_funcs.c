@@ -1,5 +1,6 @@
 #include "main.h"
 
+char **list_to_array(list_t *head);
 /**
   * add_node_end - adds a node to the end of a nexted list.
   * @head : a pointer to the head pointer.
@@ -132,7 +133,7 @@ char **list_to_array(list_t *head)
 {
 	char **arr;
 	list_t *tmp;
-	int i;
+	int i, j;
 
 	tmp = head;
 	i = 0;
@@ -142,18 +143,38 @@ char **list_to_array(list_t *head)
 		tmp = tmp->next;
 	}
 
-	arr = malloc(sizeof(char *) * i + 1);
+	arr = malloc(sizeof(char *) * (i + 1));
 
 	i = 0;
 	tmp = head;
 	while (tmp)
 	{
 		arr[i] = _strdup(tmp->str);
+		if (arr[i] == NULL)
+		{
+			j = 0;
+			while (j < i)
+			{
+				free(arr[j]);
+				j++;
+			}
+			free(arr);
+			return (NULL);
+		}
 		tmp = tmp->next;
 		i++;
 	}
 
 	arr[i] = NULL;
+
+	j = 0;
+	while (j < i)
+	{
+		free(arr[j]);
+		j++;
+	}
+	free(arr);
+
 	return (arr);
 }
 

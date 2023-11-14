@@ -29,17 +29,19 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 		new_ptr = malloc(new_size);
 		if (new_ptr == NULL)
 			return (NULL);
-	}
 
-	old_ptr = ptr;
-	index = 0;
-	while (index < old_size)
-	{
-		new_ptr[index] = old_ptr[index];
-		index++;
-	}
+		old_ptr = ptr;
+		index = 0;
+		while (index < old_size)
+		{
+			new_ptr[index] = old_ptr[index];
+			index++;
+		}
 
-		/*free(old_ptr);*/
+		free(ptr);
+	}
+	else
+		new_ptr = ptr;
 
 	return (new_ptr);
 }
