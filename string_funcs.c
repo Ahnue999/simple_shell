@@ -19,11 +19,11 @@ char **split_string(const char *str, const char *delimiter)
 
 	/* Figure out how many words are in str */
 	word_count = 0;
-	token = _strtok(str_copy1, delimiter);
+	token = strtok(str_copy1, delimiter);
 	while (token != NULL)
 	{
 		word_count++;
-		token = _strtok(NULL, delimiter);
+		token = strtok(NULL, delimiter);
 	}
 
 	/*
@@ -35,7 +35,7 @@ char **split_string(const char *str, const char *delimiter)
 		return (NULL);
 
 	/* Use strtok to get each word and add it to your array */
-	token = _strtok(str_copy2, delimiter);
+	token = strtok(str_copy2, delimiter);
 	index = 0;
 	while (token != NULL)
 	{
@@ -43,7 +43,7 @@ char **split_string(const char *str, const char *delimiter)
 		if (str_array[index] == NULL)
 			return (NULL);
 		index++;
-		token = _strtok(NULL, delimiter);
+		token = strtok(NULL, delimiter);
 	}
 	str_array[word_count] = NULL;
 
@@ -175,7 +175,7 @@ char *_strchr(const char *str, char c)
 	{
 		if (str[index] == c)
 		{
-			return (&str[index]);
+			return ((char *)&str[index]);
 		}
 		index++;
 	}

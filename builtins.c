@@ -92,7 +92,10 @@ int builtin_cd(shdata_t *data)
 		status = chdir(data->args[1]);
 
 	if (status == -1)
+	{
+		data->status = 2;
 		perror("");
+	}
 	else
 	{
 		data->args[1] = "OLDPWD";

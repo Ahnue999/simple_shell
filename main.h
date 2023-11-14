@@ -38,6 +38,9 @@ typedef struct builtin_func_s
 int _strlen(char *);
 int _strcmp(char *, char *);
 char *_strdup(const char *);
+char *_strcat(char *str1, const char *str2);
+char *_strchr(const char *s, char c);
+char *_strtok(char *str, const char *delim);
 char *strcat_alloc(char *, char *);
 char **split_string(const char *str, const char *delimiter);
 int _atoi(char *);
@@ -75,9 +78,5 @@ void prompt();
 char **check_symbols(char *, shdata_t *);
 char *expand(char *, int *, char, shdata_t *);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-char *_strdup(const char *str);
-char *_strcat(char *str1, const char *str2);
-char *_strchr(const char *s, char c);
-char *_strtok(char *str, const char *delim);
 
 #endif
