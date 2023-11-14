@@ -71,7 +71,6 @@ void prompt();
 char **check_symbols(char *);
 char *_strdup(const char *str);
 char *_strcat(char *str1, const char *str2);
-char *_strchr(char *s, char c);
 char *_strtok(char *str, const char *delim);
 
 #endif
