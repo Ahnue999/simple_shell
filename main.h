@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <fcntl.h>
 
 extern char **environ;
 
@@ -62,6 +63,7 @@ int delete_node_at_index(list_t **head, unsigned int index);
 list_t *insert_node(list_t **head, unsigned int idx, char * string);
 
 
+int execute(shdata_t *);
 int search_array(char *, char **);
 char *_getenv(const char *, char **);
 char *check_exe(char *, list_t *);
@@ -71,12 +73,13 @@ list_t *path_list();
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void shell_exit(int status, int args, char **argv);
 void run_shell(shdata_t *);
-void non_interactive(char **argv, shdata_t *);
-int fill_shdata(shdata_t *);
+void non_interactive(shdata_t *);
+int fill_shdata(shdata_t *, char **);
 void signal_handler();
 void prompt();
 char **check_symbols(char *, shdata_t *);
 char *expand(char *, int *, char, shdata_t *);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+int read_script(shdata_t *);
 
 #endif

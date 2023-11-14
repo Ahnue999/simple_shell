@@ -1,5 +1,46 @@
 #include "main.h"
 
+void non_interactive(char **argv, shdata_t *data);
+/**
+ * non_interactive - runs the shell in non-interactive mode.
+ * @argv: arguments vector.
+ * @data: data
+ * Return: void.
+ */
+void non_interactive(char **argv, shdata_t *data)
+{
+	char *exe_path;
+	int child_state;
+	pid_t child_pid;
+
+	argv++;
+	exe_path = check_exe(argv[0], data->sh_env);
+
+	if (!exe_path)
+	{
+		perror("");
+		exit(1);
+	}
+
+	child_pid = fork();
+	if (child_pid == -1)
+	{
+		perror("");
+		exit(1);
+	}
+
+	if (child_pid == 0)
+	{
+		data->pid = getpid();
+		execve(exe_path, argv, list_to_array(data->sh_env));
+		perror("");
+		_exit(1);
+	}
+	else
+		wait(&child_state);
+}
+
+
 /**
  * run_shell - runs the prompt loop.
  * @data: data of the shell.
