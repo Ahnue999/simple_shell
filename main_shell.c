@@ -6,12 +6,17 @@
  *
  * Return: 0 when succes and 1 otherwise.
  */
-int fill_shdata(shdata_t *data)
+int fill_shdata(shdata_t *data, char **argv)
 {
 	/* yes, it is incomplete */
 	int i;
 
+	i = 1;
 	data->args = NULL;
+	while (argv[i])
+	{
+		data->args[i - 1] = _strdup(argv[i]);
+	}
 	data->status = 0;
 	data->ps_count = 0;
 	data->sh_env = NULL;
@@ -38,10 +43,11 @@ int main(__attribute__((unused)) int argc, char **argv)
 {
 	shdata_t data;
 
-	fill_shdata(&data);
+	fill_shdata(&data, argv);
 	if (argc > 1)
 	{
-		non_interactive(argv, &data);
+		read_script(&data);
+		execute(&data);
 		return (0);
 	}
 

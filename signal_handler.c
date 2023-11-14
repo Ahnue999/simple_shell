@@ -5,8 +5,9 @@
   *
   * Return: no return.
   */
-void signal_handler(void)
+void signal_handler(int n)
 {
+	(void) n;
 	write(STDOUT_FILENO, "\n", 1);
 	prompt();
 }
