@@ -161,28 +161,6 @@ char *_strcat(char *str1, const char *str2)
 }
 
 /**
- * _strchr - returns a character in a string
- * @s: string
- * @c: character
- * Return: pointer to the character or NULL
- */
-
-char *_strchr(const char *str, char c)
-{
-	int index = 0;
-
-	while (str[index] != '\0')
-	{
-		if (str[index] == c)
-		{
-			return ((char *)&str[index]);
-		}
-		index++;
-	}
-	return (NULL);
-}
-
-/**
  * _strtok - breaks a string into a sequesnce of
  more non-empty tokens
  * @str: string to be parsed
@@ -193,22 +171,45 @@ char *_strchr(const char *str, char c)
 char *_strtok(char *str, const char *delim)
 {
 	static char *next_token;
-	int index;
+	int index, delim_index;
 
 	if (str == NULL && next_token == NULL)
 		return (NULL);
 
 	if (str == NULL)
 		str = next_token;
+	else
+		next_token = str;
+
+	while (*str != '\0')
+	{
+		delim_index = 0;
+		while (delim[delim_index] != '\0')
+		{
+			if (*str == delim[delim_index])
+			{
+				str++;
+				break;
+			}
+			delim_index++;
+		}
+		if (delim[delim_index] == '\0')
+			break;
+	}
 
 	index = 0;
 	while (str[index] != '\0')
 	{
-		if (_strchr(delim, str[index]) != NULL)
+		delim_index = 0;
+		while (delim[delim_index] != '\0')
 		{
-			str[index] = '\0';
-			next_token = &str[index + 1];
-			break;
+			if (str[index] == delim[delim_index])
+			{
+				str[index] = '\0';
+				break;
+				next_token = &str[index + 1];
+			}
+			delim_index++;
 		}
 		index++;
 	}
