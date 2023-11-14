@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
 extern char **environ;
 
@@ -34,9 +35,16 @@ typedef struct builtin_func_s
 } builtin_funcs_t;
 
 /* string functions */
+int _strlen(char *);
 int _strcmp(char *, char *);
+char *_strdup(const char *);
+char *_strcat(char *str1, const char *str2);
+char *_strchr(const char *s, char c);
+char *_strtok(char *str, const char *delim);
+char *strcat_alloc(char *, char *);
 char **split_string(const char *str, const char *delimiter);
-int _atoi(char *s);
+int _atoi(char *);
+char *itos(unsigned int );
 
 /* built-in functions */
 int (*get_builtin(shdata_t *))(shdata_t *);
@@ -60,7 +68,6 @@ char *check_exe(char *, list_t *);
 void print_path(void);
 void print_list(list_t *);
 list_t *path_list();
-list_t *add_node_end(list_t **, char *);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void shell_exit(int status, int args, char **argv);
 void run_shell(shdata_t *);
@@ -68,9 +75,8 @@ void non_interactive(char **argv, shdata_t *);
 int fill_shdata(shdata_t *);
 void signal_handler();
 void prompt();
-char **check_symbols(char *);
-char *_strdup(const char *str);
-char *_strcat(char *str1, const char *str2);
-char *_strtok(char *str, const char *delim);
+char **check_symbols(char *, shdata_t *);
+char *expand(char *, int *, char, shdata_t *);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 #endif

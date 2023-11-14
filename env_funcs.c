@@ -61,6 +61,7 @@ int builtin_setenv(shdata_t *data)
 	if (!data->args[1] || !data->args[2])
 	{
 		write(STDERR_FILENO, "Error", 5);
+		data->status = 2;
 		return (-1);
 	}
 
@@ -109,6 +110,7 @@ int builtin_unsetenv(shdata_t *data)
 	if (!data->args[1])
 	{
 		write(STDERR_FILENO, "ERROR", 5);
+		data->status = 2;
 		return (-1);
 	}
 
