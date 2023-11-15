@@ -29,7 +29,7 @@ int fill_shdata(shdata_t *data, char **argv)
 	}
 	data->argvs[i] = NULL;
 	data->status = 0;
-	data->ps_count = 0;
+	data->ps_count = 1;
 	data->sh_env = NULL;
 	data->setenv_flag = 1;
 
@@ -41,6 +41,29 @@ int fill_shdata(shdata_t *data, char **argv)
 	}
 
 	return (0);
+}
+
+/**
+  * free_shdata - frees shell data struct.
+  * @data: the struct to free.
+  *
+  * Return: void.
+  */
+void free_shdata(shdata_t *data)
+{
+	int i = 0;
+
+	free_list(&(data->sh_env));
+
+	free(data->args);
+
+	i = 0;
+	while(data->argvs[i])
+	{
+		free(data->args[i]);
+		i++;
+	}
+	free(data->argvs);
 }
 
 /**
@@ -63,5 +86,6 @@ int main(__attribute__((unused)) int argc, char **argv)
 	}
 
 	run_shell(&data);
+	free_shdata(&data);
 	return (0);
 }

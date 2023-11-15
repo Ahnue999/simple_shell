@@ -31,8 +31,9 @@ char *check_exe(char *filename, list_t *env)
 		{
 			return (tmp);
 		}
+		else
+			free(tmp);
 		i++;
 	}
-	free(tmp);
 	return (NULL);
 }
