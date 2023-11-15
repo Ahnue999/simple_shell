@@ -1,6 +1,6 @@
 #include "main.h"
 
-/** 
+/**
   * execute - execute a functiong provided its
   * name and arguments.
   * @data: shell data.
