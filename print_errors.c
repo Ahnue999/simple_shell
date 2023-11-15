@@ -8,23 +8,25 @@
   */
 void print_errors(shdata_t *data)
 {
-	char *filename, *command;
+	char *filename, *command, *massage;
 	char *ps;
 	int i, length;
 
-	filename = _strdup(data->args[0]);
-	command = _strdup(data->args[1]);
+	filename = _strdup(data->argvs[0]);
+	command = _strdup(data->args[0]);
 	ps = _strdup(itos(data->ps_count));
 
-	i = 0;
+	i = length = 0;
 	while (filename[i])
 		i++, length++;
 	i = 0;
 	while (command[i])
 		i++, length++;
 	i = 0;
-	while (ps)
+	while (ps[i])
 		i++, length++;
+
+	length += 16;
 
 	massage = malloc(sizeof(char) * length + 1);
 	massage = strcat(filename, ": ");
@@ -34,5 +36,5 @@ void print_errors(shdata_t *data)
 	massage = strcat(massage, ": ");
 	massage = strcat(massage, "not found\n");
 
-	write
+	write(STDOUT_FILENO, massage, length);
 }

@@ -20,8 +20,7 @@ int execute(shdata_t *data)
 	if (!exe_path)
 	{
 		data->status = 127;
-		perror("");
-		data->ps_count++;
+		print_errors(data);
 		return (127);
 	}
 

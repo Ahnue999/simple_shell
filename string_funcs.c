@@ -14,9 +14,12 @@ char **split_string(const char *str, const char *delimiter)
 	int index, i;
 	char **str_array;
 	const char *token;
-	/* Create a copy of str to tokenize */
-	char *str_copy1 = _strdup(str);
-	char *str_copy2 = _strdup(str);
+	char *str_copy1, *str_copy2;
+
+	if (!str)
+		return (NULL);
+	str_copy1 = _strdup(str);
+	str_copy2 = _strdup(str);
 
 	/* Figure out how many words are in str */
 	word_count = 0;
@@ -61,7 +64,6 @@ char **split_string(const char *str, const char *delimiter)
 
 	free(str_copy1);
 	free(str_copy2);
-
 	return (str_array);
 }
 

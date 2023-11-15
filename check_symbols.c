@@ -91,5 +91,7 @@ char *expand(char *string, int *i, char to_expand, shdata_t *data)
 			new = strcat_alloc(new, after);
 			i += _strlen(var_value);
 	}
+
+	free(before), free(after), free(var_name), free(var_value);
 	return (new);
 }
