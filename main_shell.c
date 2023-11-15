@@ -57,7 +57,7 @@ int main(__attribute__((unused)) int argc, char **argv)
 	if (!isatty(STDIN_FILENO))
 	{
 		/*read_script(&data);*/
-		execute(&data);
+		non_interactive(&data);
 		return (0);
 	}
 

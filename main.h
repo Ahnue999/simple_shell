@@ -73,7 +73,6 @@ list_t *path_list();
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void shell_exit(int status, int args, char **argv);
 void run_shell(shdata_t *);
-void non_interactive(shdata_t *);
 int fill_shdata(shdata_t *, char **);
 void signal_handler();
 void prompt();
@@ -81,5 +80,6 @@ char **check_symbols(char *, shdata_t *);
 char *expand(char *, int *, char, shdata_t *);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int read_script(shdata_t *);
+int non_interactive(shdata_t *);
 
 #endif

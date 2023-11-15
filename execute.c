@@ -11,7 +11,6 @@ int execute(shdata_t *data)
 {
 	char *exe_path;
 	int child_state;
-	pid_t child_pid;
 
 	exe_path = check_exe(data->args[0], data->sh_env);
 
@@ -23,20 +22,17 @@ int execute(shdata_t *data)
 		return (127);
 	}
 
-	child_pid = fork();
-	if (child_pid == -1)
+	switch (fork())
 	{
-		perror("");
-		exit(1);
+		case -1:
+			perror("");
+			exit(1);
+		case 0:
+			execve(exe_path, data->args, list_to_array(data->sh_env));
+			perror("");
+			_exit(1);
+		default:
+			wait(&child_state);
 	}
-
-	if (child_pid == 0)
-	{
-		execve(exe_path, data->args, list_to_array(data->sh_env));
-		perror("");
-		_exit(1);
-	}
-	else
-		wait(&child_state);
 	return (0);
 }

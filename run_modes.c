@@ -1,6 +1,43 @@
 #include "main.h"
 
 /**
+  * non_interactive.
+  */
+int non_interactive(shdata_t *data)
+{
+	char *lineptr = NULL;
+	size_t n = 0;
+	int status = 1, count;
+	int (*func)(shdata_t *);
+	char **cmd_arr;
+
+	status = _getline(&lineptr, &n, stdin);
+	if (status == -1)
+		return (-1);
+	if (*lineptr == '\n' && !*(lineptr + 1))
+		return (0);
+	cmd_arr = check_symbols(lineptr, data);
+	count = 0;
+	while (cmd_arr[count])
+	{
+		data->args = split_string(cmd_arr[count], "\n ");
+		func = get_builtin(data);
+		if (func != NULL)
+		{
+			data->status = 0;
+			if (data->args[1])
+				data->status = atoi(data->args[1]);
+			func(data);
+			data->ps_count++;
+			count++;
+		}
+		execute(data);
+		count++;
+		data->ps_count++;
+	}
+	return (0);
+}
+/**
  * run_shell - runs the prompt loop.
  * @data: data of the shell.
  *
