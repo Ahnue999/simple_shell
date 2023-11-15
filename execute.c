@@ -1,5 +1,12 @@
 #include "main.h"
 
+/** 
+  * execute - execute a functiong provided its
+  * name and arguments.
+  * @data: shell data.
+  *
+  * Return: 0 on success, 127 if file is not found.
+  */
 int execute(shdata_t *data)
 {
 	char *exe_path;

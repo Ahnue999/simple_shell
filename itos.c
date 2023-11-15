@@ -22,7 +22,7 @@ char *itos(unsigned int n)
 
 	string = malloc(sizeof(char) * length + 1);
 	if (!string)
-		return(NULL);
+		return (NULL);
 
 	m = length;
 	while (m)
