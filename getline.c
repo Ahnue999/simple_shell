@@ -106,7 +106,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 				if (buffer == NULL)
 					return (-1);
 				*lineptr = buffer;
-				bytes_read = red(fd, &buffer[index], *n - index);
+				bytes_read = read(fd, &buffer[index], *n - index);
 				if (bytes_read <= 0)
 					break;
 			}
