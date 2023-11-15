@@ -10,14 +10,23 @@
 int fill_shdata(shdata_t *data, char **argv)
 {
 	/* yes, it is incomplete */
-	int i;
+	int i, length;
 
-	i = 1;
 	data->args = NULL;
-	while (argv[i])
+	i = length = 0;
+	while (argv[i + 1])
 	{
-		data->args[i - 1] = _strdup(argv[i]);
+		length++;
+		i++;
 	}
+	data->args = malloc(sizeof(char *) * length + 1);
+	i = 0;
+	while (i < length)
+	{
+		data->args[i] = _strdup(argv[i + 1]);
+		i++;
+	}
+	data->args[i] = NULL;
 	data->status = 0;
 	data->ps_count = 0;
 	data->sh_env = NULL;
@@ -45,9 +54,9 @@ int main(__attribute__((unused)) int argc, char **argv)
 	shdata_t data;
 
 	fill_shdata(&data, argv);
-	if (argc > 1)
+	if (!isatty(STDIN_FILENO))
 	{
-		read_script(&data);
+		/*read_script(&data);*/
 		execute(&data);
 		return (0);
 	}
