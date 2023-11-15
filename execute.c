@@ -8,8 +8,6 @@ int execute(shdata_t *data)
 
 	exe_path = check_exe(data->args[0], data->sh_env);
 
-	printf("entered execute!\n\n");
-
 	if (!exe_path)
 	{
 		data->status = 127;

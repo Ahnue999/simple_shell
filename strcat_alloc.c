@@ -1,10 +1,12 @@
 #include "main.h"
 
 /**
-  * _strcat - concatenates two strings
-  * @dest: the string to be appended to
-  * @src: the string to append
-  * Return: the rusulting string
+  * strcat_alloc - reallocate memory for the both strings
+  * and concatentes them.
+  * @dest: the string to be appended to.
+  * @src: the string to append.
+  *
+  * Return: the rusulting string.
   */
 char *strcat_alloc(char *dest, char *src)
 {

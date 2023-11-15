@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+  * read_script - reads a shell script and execute its lines.
+  * @data: shell data.
+  *
+  * Return: 0 on success.
+  */
 int read_script(shdata_t *data)
 {
 	int fd, count;

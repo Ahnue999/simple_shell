@@ -167,13 +167,15 @@ char **list_to_array(list_t *head)
 
 	arr[i] = NULL;
 
-	j = 0;
-	while (j < i)
-	{
-		free(arr[j]);
-		j++;
-	}
-	free(arr);
+	/*
+	* j = 0;
+	* while (j < i)
+	* {
+	*	free(arr[j]);
+	*	j++;
+	* }
+	* free(arr);
+	*/
 
 	return (arr);
 }

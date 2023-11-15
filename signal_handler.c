@@ -2,6 +2,7 @@
 
 /**
   * signal_handler - handles the SIG_INT.
+  * @n: just a filler for the signal prototype.
   *
   * Return: no return.
   */

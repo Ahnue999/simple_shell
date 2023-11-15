@@ -3,6 +3,7 @@
 /**
  * fill_shdata - fills the shdata_t structure.
  * @data: the empty structure.
+ * @argv: argument vector.
  *
  * Return: 0 when succes and 1 otherwise.
  */
