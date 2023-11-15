@@ -17,6 +17,11 @@ list_t *add_node_end(list_t **head, char *str)
 		return (NULL);
 
 	new->str = _strdup(str);
+	if (!new->str)
+	{
+		free(new);
+		return (NULL);
+	}
 	new->next = NULL;
 
 	temp = *head;
@@ -106,6 +111,11 @@ list_t *insert_node(list_t **head, unsigned int idx, char *string)
 		return (NULL);
 
 	new->str = _strdup(string);
+	if (!new->str)
+	{
+		free(new);
+		return (NULL);
+	}
 	new->next = NULL;
 
 	if (idx == 0)

@@ -1,7 +1,9 @@
 #include "main.h"
 
 /**
-  * non_interactive.
+  * non_interactive - short description.
+  * @data: data
+  * Return: 0 on success or -1 on failure
   */
 int non_interactive(shdata_t *data)
 {
