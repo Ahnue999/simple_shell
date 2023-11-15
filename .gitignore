@@ -4,3 +4,4 @@ test.c
 vgcore.*
 Genius
 TEST_SUITE
+*.swp
