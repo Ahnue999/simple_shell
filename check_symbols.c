@@ -52,7 +52,7 @@ char **check_symbols(char *string, shdata_t *data)
  */
 char *expand(char *string, int *i, char to_expand, shdata_t *data)
 {
-	char *before, *after, *new;
+	char *before, *after, *new = "";
 	char *var_name, *var_value;
 	int length, j;
 
@@ -62,7 +62,6 @@ char *expand(char *string, int *i, char to_expand, shdata_t *data)
 	after = after + *i;
 	while (!(*after == ' ' || *after == '\0'))
 		after++;
-	new = "";
 	new = strcat_alloc(new, before);
 	switch (to_expand)
 	{
@@ -86,10 +85,11 @@ char *expand(char *string, int *i, char to_expand, shdata_t *data)
 				var_name[j] = string[*i + 1 + j], j++;
 			var_name[j] = '\0';
 			var_value = _getenv(var_name, list_to_array(data->sh_env));
+			if (var_value == NULL)
+				var_value = "";
 			new = strcat_alloc(new, var_value);
 			new = strcat_alloc(new, after);
 			i += _strlen(var_value);
-			break;
 	}
 	return (new);
 }
