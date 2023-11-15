@@ -51,18 +51,9 @@ int fill_shdata(shdata_t *data, char **argv)
   */
 void free_shdata(shdata_t *data)
 {
-	int i = 0;
-
 	free_list(&(data->sh_env));
 
 	free(data->args);
-
-	i = 0;
-	while(data->argvs[i])
-	{
-		free(data->args[i]);
-		i++;
-	}
 	free(data->argvs);
 }
 
