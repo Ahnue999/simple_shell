@@ -93,7 +93,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 			if (bytes_read == -1 || bytes_read == 0)
 				return (-1);
 		}
-		buffer[bytes_read] = '\0';
+		buffer[index] = '\0';
 
 		while (buffer[index] != '\n')
 		{
@@ -105,12 +105,14 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 				buffer = _realloc(buffer, index, index + 1);
 				if (buffer == NULL)
 					return (-1);
+				*lineptr = buffer;
+				bytes_read = red(fd, &buffer[index], *n - index);
+				if (bytes_read <= 0)
+					break;
 			}
 		}
-		if (buffer[index] == '\n')
-			break;
 	}
-	buffer[index] = '\0';
+	(*lineptr)[index] = '\0';
 
 	return (index);
 }
