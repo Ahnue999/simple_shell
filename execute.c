@@ -12,6 +12,9 @@ int execute(shdata_t *data)
 	char *exe_path;
 	int child_state;
 
+	if (!data->args[0])
+		return (127);
+
 	exe_path = check_exe(data->args[0], data->sh_env);
 
 	if (!exe_path)

@@ -37,7 +37,7 @@ char **check_symbols(char *string, shdata_t *data)
 		}
 		i++;
 	}
-	cmd_arr = split_string(string, ";");
+	cmd_arr = split_string(string, "\t\0\n;");
 	return (cmd_arr);
 }
 

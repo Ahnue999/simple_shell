@@ -19,6 +19,8 @@ int (*get_builtin(shdata_t *data))(shdata_t *)
 	};
 	int i;
 
+	if (!data->args[0])
+		return (NULL);
 	i = 0;
 	while (functions[i].name)
 	{
