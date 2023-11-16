@@ -52,8 +52,7 @@ char **check_symbols(char *string, shdata_t *data)
  */
 char *expand(char *string, int *i, char to_expand, shdata_t *data)
 {
-	char *before, *after, *new = "";
-	char *var_name, *var_value;
+	char *before, *after, *new = "", *var_name, *var_value;
 	int length, j;
 
 	before = _strdup(string);
@@ -70,6 +69,7 @@ char *expand(char *string, int *i, char to_expand, shdata_t *data)
 			new = strcat_alloc(new, itos(data->pid));
 			new = strcat_alloc(new, after);
 			(*i) += _strlen(itos(data->pid));
+			break;
 		case '?':
 			new = strcat_alloc(new, itos(data->status));
 			new = strcat_alloc(new, after);
