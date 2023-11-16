@@ -12,7 +12,7 @@ char *check_exe(char *filename, list_t *env)
 {
 	char **path_dirs;
 	char **env_arr;
-	char *path, *tmp;
+	char *path, *tmp, *tmp2;
 	int i;
 	struct stat st;
 
@@ -28,8 +28,10 @@ char *check_exe(char *filename, list_t *env)
 	while (path_dirs[i])
 	{
 		tmp = _strdup(path_dirs[i]);
-		tmp = strcat_alloc(tmp, "/");
-		tmp = strcat_alloc(tmp, filename);
+		tmp2 = strcat_alloc(tmp, "/");
+		free(tmp);
+		tmp = strcat_alloc(tmp2, filename);
+		free(tmp2);
 		if (!stat(tmp, &st))
 		{
 			free_aop(path_dirs);
