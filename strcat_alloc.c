@@ -20,7 +20,6 @@ char *strcat_alloc(char *dest, char *src)
 	while (src[j] != '\0')
 		j++;
 
-	tmp = dest;
 	dest = _realloc(dest, i + 1, sizeof(char) * (i + j) + 1);
 	if (!dest)
 		return (NULL);
