@@ -1,5 +1,5 @@
-#ifndef _MAIN_
-#define _MAIN__
+#ifndef _MAIN_H_
+#define _MAIN_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,12 +12,30 @@
 
 extern char **environ;
 
+/**
+  * struct list_s - shoet description
+  * @str: first member
+  * @next: second member
+  * Description: Longer descritpion
+  */
 typedef struct list_s
 {
 	char *str;
 	struct list_s *next;
 } list_t;
 
+/**
+  * struct shdata_s - short descrtitpion
+  * @args: first memeber
+  * @argvs: second member
+  * @sh_env: third member
+  * @ps_count: fourth member
+  * @status: fifth member
+  * @pid: sixth member
+  * @setenv_flag: seventh member
+  *
+  * Descritpiton: short description
+  */
 typedef struct shdata_s
 {
 	char **args;
@@ -29,7 +47,13 @@ typedef struct shdata_s
 	int setenv_flag;
 } shdata_t;
 
-
+/**
+  * struct builtin_func_s - short description
+  * @name: first member
+  * @func: second member
+  *
+  * Description: short description
+  */
 typedef struct builtin_func_s
 {
 	char *name;
@@ -46,7 +70,7 @@ char *_strtok(char *str, const char *delim);
 char *strcat_alloc(char *, char *);
 char **split_string(const char *str, const char *delimiter);
 int _atoi(char *);
-char *itos(unsigned int );
+char *itos(unsigned int);
 
 /* built-in functions */
 int (*get_builtin(shdata_t *))(shdata_t *);
@@ -61,7 +85,7 @@ void free_list(list_t **head);
 char **list_to_array(list_t *);
 list_t *add_node_end(list_t **, char *);
 int delete_node_at_index(list_t **head, unsigned int index);
-list_t *insert_node(list_t **head, unsigned int idx, char * string);
+list_t *insert_node(list_t **head, unsigned int idx, char *string);
 
 
 int execute(shdata_t *);
@@ -76,8 +100,8 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void shell_exit(int status, int args, char **argv);
 void run_shell(shdata_t *);
 int fill_shdata(shdata_t *, char **);
-void signal_handler();
-void prompt();
+void signal_handler(void);
+void prompt(void);
 char **check_symbols(char *, shdata_t *);
 char *expand(char *, int *, char, shdata_t *);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
@@ -85,4 +109,4 @@ int read_script(shdata_t *);
 int non_interactive(shdata_t *);
 void free_aop(char **arr);
 
-#endif
+#endif /* MAIN_H */
