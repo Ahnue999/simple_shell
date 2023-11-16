@@ -31,7 +31,7 @@ int execute(shdata_t *data)
 			exit(1);
 		case 0:
 			execve(exe_path, data->args, list_to_array(data->sh_env));
-			perror("");
+			perror("nnnnnn");
 			_exit(1);
 		default:
 			wait(&child_state);

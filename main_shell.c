@@ -15,12 +15,9 @@ int fill_shdata(shdata_t *data, char **argv)
 	data->args = NULL;
 	data->argvs = NULL;
 	i = length = 0;
-	while (argv[i])
-	{
+	while (argv[length])
 		length++;
-		i++;
-	}
-	data->argvs = malloc(sizeof(char *) * length + 1);
+	data->argvs = malloc(sizeof(char *) * (length + 1));
 	i = 0;
 	while (i < length)
 	{
