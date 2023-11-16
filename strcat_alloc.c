@@ -35,6 +35,5 @@ char *strcat_alloc(char *dest, char *src)
 	}
 	dest[i] = '\0';
 
-	free(tmp);
 	return (dest);
 }
