@@ -89,7 +89,6 @@ int builtin_setenv(shdata_t *data)
 			insert_node(&(data->sh_env), index, new);
 		}
 	}
-
 	free(new);
 	free(name);
 	free(value);

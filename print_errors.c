@@ -1,5 +1,6 @@
 #include "main.h"
 
+void print_errors(shdata_t *data);
 /**
   * print_errors - prints an error.
   * @data: shell data.
@@ -15,6 +16,11 @@ void print_errors(shdata_t *data)
 	filename = _strdup(data->argvs[0]);
 	command = _strdup(data->args[0]);
 	ps = _strdup(itos(data->ps_count));
+	if (filename == NULL || command == NULL || ps == NULL)
+	{
+		perror("Memory allocation failed!\n");
+		return;
+	}
 
 	i = length = 0;
 	while (filename[i])
@@ -29,12 +35,31 @@ void print_errors(shdata_t *data)
 	length += 16;
 
 	massage = malloc(sizeof(char) * length + 1);
-	massage = strcat(filename, ": ");
+	if (massage == NULL)
+	{
+		perror("Memory allocation failed!\n");
+		/**
+		 * free(filename);
+		 * free(command);
+		 * free(ps);
+		 */
+		return;
+	}
+	massage[0] = '\0';
+
+	massage = strcat(massage, filename);
+	massage = strcat(massage, ": ");
 	massage = strcat(massage, ps);
 	massage = strcat(massage, ": ");
 	massage = strcat(massage, command);
 	massage = strcat(massage, ": ");
 	massage = strcat(massage, "not found\n");
 
-	write(STDOUT_FILENO, massage, length);
+	write(STDOUT_FILENO, massage, _strlen(massage));
+	/**
+	 * free(massage);
+	 * free(filename);
+	 * free(command);
+	 * free(ps);
+	 */
 }

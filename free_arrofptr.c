@@ -15,5 +15,6 @@ void free_aop(char **arr)
 		free(arr[i]);
 		i++;
 	}
-	free(arr);
+	arr[i] = NULL;
+	/*free(arr);*/
 }
