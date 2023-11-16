@@ -143,7 +143,7 @@ char **list_to_array(list_t *head)
 {
 	char **arr;
 	list_t *tmp;
-	int i, j;
+	int i;
 
 	tmp = head;
 	i = 0;
@@ -162,30 +162,13 @@ char **list_to_array(list_t *head)
 		arr[i] = _strdup(tmp->str);
 		if (arr[i] == NULL)
 		{
-			j = 0;
-			while (j < i)
-			{
-				free(arr[j]);
-				j++;
-			}
-			free(arr);
+			free_aop(arr);
 			return (NULL);
 		}
 		tmp = tmp->next;
 		i++;
 	}
-
 	arr[i] = NULL;
-
-	/*
-	* j = 0;
-	* while (j < i)
-	* {
-	*	free(arr[j]);
-	*	j++;
-	* }
-	* free(arr);
-	*/
 
 	return (arr);
 }

@@ -83,5 +83,6 @@ char *expand(char *, int *, char, shdata_t *);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int read_script(shdata_t *);
 int non_interactive(shdata_t *);
+void free_aop(char **arr);
 
 #endif

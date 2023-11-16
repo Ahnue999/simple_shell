@@ -17,4 +17,5 @@ void prompt(void)
 	write(STDOUT_FILENO, cwd, length);
 	write(STDOUT_FILENO, "(^~^) ", 6);
 	fflush(stdout);
+	free(cwd);
 }

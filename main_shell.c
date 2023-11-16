@@ -41,20 +41,6 @@ int fill_shdata(shdata_t *data, char **argv)
 }
 
 /**
-  * free_shdata - frees shell data struct.
-  * @data: the struct to free.
-  *
-  * Return: void.
-  */
-void free_shdata(shdata_t *data)
-{
-	free_list(&(data->sh_env));
-
-	free(data->args);
-	free(data->argvs);
-}
-
-/**
  * main - entry point.
  * @argc: arguments count.
  * @argv: arguments vector.
@@ -74,6 +60,6 @@ int main(__attribute__((unused)) int argc, char **argv)
 	}
 
 	run_shell(&data);
-	free_shdata(&data);
+	free_list(&(data.sh_env));
 	return (0);
 }

@@ -11,6 +11,7 @@
 char *strcat_alloc(char *dest, char *src)
 {
 	int i, j;
+	char *tmp;
 
 	i = j = 0;
 
@@ -20,6 +21,7 @@ char *strcat_alloc(char *dest, char *src)
 	while (src[j] != '\0')
 		j++;
 
+	tmp = dest;
 	dest = _realloc(dest, i + 1, sizeof(char) * (i + j) + 1);
 	if (!dest)
 		return (NULL);
@@ -33,5 +35,6 @@ char *strcat_alloc(char *dest, char *src)
 	}
 	dest[i] = '\0';
 
+	free(tmp);
 	return (dest);
 }

@@ -11,6 +11,7 @@
 char *check_exe(char *filename, list_t *env)
 {
 	char **path_dirs;
+	char **env_arr;
 	char *path, *tmp;
 	int i;
 	struct stat st;
@@ -18,7 +19,9 @@ char *check_exe(char *filename, list_t *env)
 	if (!stat(filename, &st))
 		return (filename);
 
-	path = _getenv("PATH", list_to_array(env));
+	env_arr = list_to_array(env);
+	path = _getenv("PATH", env_arr);
+	free_aop(env_arr);
 	path_dirs = split_string(path, ":");
 
 	i = 0;
@@ -29,6 +32,7 @@ char *check_exe(char *filename, list_t *env)
 		tmp = strcat_alloc(tmp, filename);
 		if (!stat(tmp, &st))
 		{
+			free_aop(path_dirs);
 			return (tmp);
 		}
 		else

@@ -35,8 +35,12 @@ int non_interactive(shdata_t *data)
 			execute(data);
 			count++;
 			data->ps_count++;
+			free_aop(data->args);
 		}
+		free_aop(cmd_arr);
 	}
+	free_aop(data->argvs);
+	free(lineptr);
 	return (0);
 }
 /**
@@ -54,7 +58,6 @@ void run_shell(shdata_t *data)
 	char **cmd_arr;
 
 	signal(SIGINT, signal_handler);
-
 	while (1)
 	{
 		prompt();
@@ -76,14 +79,16 @@ void run_shell(shdata_t *data)
 				func(data);
 				data->ps_count++;
 				count++;
+				free_aop(data->args);
 				continue;
 			}
 			execute(data);
 			count++;
 			data->ps_count++;
+			free_aop(data->args);
 		}
+		free_aop(cmd_arr);
 	}
-
-	data->ps_count++;
 	free(lineptr);
+	free_aop(data->argvs);
 }
