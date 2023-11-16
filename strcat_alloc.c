@@ -11,7 +11,6 @@
 char *strcat_alloc(char *dest, char *src)
 {
 	int i, j;
-	char *tmp;
 
 	i = j = 0;
 
