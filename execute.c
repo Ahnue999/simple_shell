@@ -11,16 +11,20 @@ int execute(shdata_t *data)
 {
 	char *exe_path;
 	int child_state;
+	char **env_arr;
 
 	if (!data->args[0])
 		return (127);
 
 	exe_path = check_exe(data->args[0], data->sh_env);
+	env_arr = list_to_array(data->sh_env);
 
 	if (!exe_path)
 	{
 		data->status = 127;
 		print_errors(data);
+		free(exe_path);
+		free_aop(env_arr);
 		return (127);
 	}
 
@@ -30,12 +34,13 @@ int execute(shdata_t *data)
 			perror("");
 			exit(1);
 		case 0:
-			execve(exe_path, data->args, list_to_array(data->sh_env));
+			execve(exe_path, data->args, env_arr);
 			perror("");
 			_exit(1);
 		default:
 			wait(&child_state);
 	}
 	free(exe_path);
+	free_aop(env_arr);
 	return (0);
 }

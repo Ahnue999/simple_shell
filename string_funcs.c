@@ -11,7 +11,7 @@ char **split_string(const char *str, const char *delimiter);
 char **split_string(const char *str, const char *delimiter)
 {
 	int word_count = 0;
-	int index, i;
+	int index;
 	char **str_array;
 	const char *token;
 	char *str_copy1, *str_copy2;
@@ -46,13 +46,7 @@ char **split_string(const char *str, const char *delimiter)
 		str_array[index] = _strdup(token);
 		if (str_array[index] == NULL)
 		{
-			i = 0;
-			while (i < index)
-			{
-				free(str_array[i]);
-				i++;
-			}
-			free(str_array);
+			free_aop(str_array);
 			free(str_copy1);
 			free(str_copy2);
 			return (NULL);

@@ -29,9 +29,7 @@ char *check_exe(char *filename, list_t *env)
 	{
 		tmp = _strdup(path_dirs[i]);
 		tmp = strcat_alloc(tmp, "/");
-		/*free(tmp);*/
 		tmp = strcat_alloc(tmp, filename);
-		/*free(tmp2);*/
 		if (!stat(tmp, &st))
 		{
 			free_aop(path_dirs);
@@ -41,5 +39,6 @@ char *check_exe(char *filename, list_t *env)
 			free(tmp);
 		i++;
 	}
+	free_aop(path_dirs);
 	return (NULL);
 }

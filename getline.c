@@ -38,7 +38,8 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 			index++;
 		}
 
-		/*free(ptr);*/
+		if (*(char *)ptr != '\0')
+			free(ptr);
 	}
 	else
 		new_ptr = ptr;
@@ -47,10 +48,10 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 }
 
 /**
-  * _fileno - custom fileno function
-  * @stream: sttream
-  * Return: file descriptor
-  */
+ * _fileno - custom fileno function
+ * @stream: sttream
+ * Return: file descriptor
+ */
 int _fileno(FILE *stream)
 {
 	if (stream == NULL)

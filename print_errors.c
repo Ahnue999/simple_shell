@@ -18,6 +18,9 @@ void print_errors(shdata_t *data)
 	ps = _strdup(itos(data->ps_count));
 	if (filename == NULL || command == NULL || ps == NULL)
 	{
+		free(filename);
+		free(command);
+		free(ps);
 		perror("Memory allocation failed!\n");
 		return;
 	}
@@ -38,11 +41,11 @@ void print_errors(shdata_t *data)
 	if (massage == NULL)
 	{
 		perror("Memory allocation failed!\n");
-		/**
-		 * free(filename);
-		 * free(command);
-		 * free(ps);
-		 */
+
+		  free(filename);
+		  free(command);
+		  free(ps);
+		 
 		return;
 	}
 	massage[0] = '\0';
@@ -56,10 +59,9 @@ void print_errors(shdata_t *data)
 	massage = strcat(massage, "not found\n");
 
 	write(STDOUT_FILENO, massage, _strlen(massage));
-	/**
-	 * free(massage);
-	 * free(filename);
-	 * free(command);
-	 * free(ps);
-	 */
+	
+	  free(massage);
+	  free(filename);
+	  free(command);
+	  free(ps);
 }

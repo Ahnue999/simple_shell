@@ -36,5 +36,7 @@ int read_script(shdata_t *data)
 			}
 		}
 	}
+	free(buf);
+	free_aop(cmd_arr);
 	return (0);
 }

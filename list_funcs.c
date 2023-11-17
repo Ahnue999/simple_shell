@@ -1,6 +1,5 @@
 #include "main.h"
 
-char **list_to_array(list_t *head);
 /**
   * add_node_end - adds a node to the end of a nexted list.
   * @head : a pointer to the head pointer.

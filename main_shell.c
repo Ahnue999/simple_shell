@@ -18,7 +18,6 @@ int fill_shdata(shdata_t *data, char **argv)
 	while (argv[length])
 		length++;
 	data->argvs = malloc(sizeof(char *) * (length + 1));
-	i = 0;
 	while (i < length)
 	{
 		data->argvs[i] = _strdup(argv[i]);
@@ -56,10 +55,13 @@ int main(__attribute__((unused)) int argc, char **argv)
 	{
 		/*read_script(&data);*/
 		non_interactive(&data);
+		free_list(&(data.sh_env));
+		free_aop(data.argvs);
 		return (0);
 	}
 
 	run_shell(&data);
 	free_list(&(data.sh_env));
+	free_aop(data.argvs);
 	return (0);
 }
