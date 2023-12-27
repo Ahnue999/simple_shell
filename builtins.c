@@ -64,7 +64,7 @@ int builtin_env(shdata_t *data)
 		ptr = ptr->next;
 	}
 
-	free(ptr);
+	free_list(&ptr);
 	return (0);
 }
 
@@ -77,14 +77,23 @@ int builtin_env(shdata_t *data)
 int builtin_cd(shdata_t *data)
 {
 	char *home, *oldpwd;
+	char *tmphome, *tmpold;
 	char *cwd;
 	char **env_arr;
-	int status;
+	int status, i;
 
 	cwd = getcwd(NULL, 4096);
 	env_arr = list_to_array(data->sh_env);
-	home = _getenv("HOME", env_arr);
-	oldpwd = _getenv("OLDPWD", env_arr);
+	tmphome = _getenv("HOME", env_arr);
+	i = 0;
+	while (tmphome[i] != '=' && tmphome[i] != '\0')
+		i++;
+	home = (tmphome += i);
+	tmpold = _getenv("OLDPWD", env_arr);
+	i = 0;
+	while (tmpold[i] != '=' && tmpold[i] != '\0')
+		i++;
+	oldpwd = (tmpold += i);
 
 	if (!data->args[1] || _strcmp(data->args[1], "~") == 0)
 		status = chdir(home);
@@ -104,5 +113,9 @@ int builtin_cd(shdata_t *data)
 		data->args[2] = _strdup(cwd);
 		builtin_setenv(data);
 	}
+	free(cwd);
+	free(tmphome);
+	free(tmpold);
+	free_aop(env_arr);
 	return (0);
 }

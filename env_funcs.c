@@ -9,7 +9,7 @@
 char *_getenv(const char *name, char **env_arr)
 {
 	int i, j;
-	char *ret;
+	char *var;
 
 	if (!name)
 	{
@@ -33,14 +33,8 @@ char *_getenv(const char *name, char **env_arr)
 		}
 		if (name[j] == '\0' && env_arr[i][j] == '=')
 		{
-			 /* remove the name of variable from the line */
-			ret = _strdup(env_arr[i]);
-			while (j + 1)
-			{
-				ret++;
-				j--;
-			}
-			return (ret);
+			var = _strdup(env_arr[i]);
+			return (var);
 		}
 	}
 	return (NULL);
@@ -57,6 +51,7 @@ int builtin_setenv(shdata_t *data)
 	char *name, *value;
 	int index;
 	char *new;
+	char **env_arr;
 
 	if (!data->args[1] || !data->args[2])
 	{
@@ -67,11 +62,18 @@ int builtin_setenv(shdata_t *data)
 
 	name = _strdup(data->args[1]);
 	value = _strdup(data->args[2]);
-	index = search_array(name, list_to_array(data->sh_env));
+
+	env_arr = list_to_array(data->sh_env);
+	index = search_array(name, env_arr);
+	free_aop(env_arr);
 
 	new = malloc(sizeof(char) * 1024);
 	if (!new)
+	{
+		free(name);
+		free(value);
 		return (-1);
+	}
 
 	strcat(new, name);
 	strcat(new, "=");
@@ -105,6 +107,7 @@ int builtin_unsetenv(shdata_t *data)
 {
 	int index;
 	char *name;
+	char **env_arr;
 
 	if (!data->args[1])
 	{
@@ -115,11 +118,14 @@ int builtin_unsetenv(shdata_t *data)
 
 	name = data->args[1];
 
-	index = search_array(name, list_to_array(data->sh_env));
+	env_arr = list_to_array(data->sh_env);
+	index = search_array(name, env_arr);
+	free_aop(env_arr);
 
 	if (index != -1)
 		delete_node_at_index(&(data->sh_env), index);
 
+	free(name);
 	return (0);
 }
 

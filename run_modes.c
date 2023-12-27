@@ -30,6 +30,7 @@ int non_interactive(shdata_t *data)
 					data->status = atoi(data->args[1]);
 				func(data);
 				data->ps_count++;
+				free_aop(data->args);
 				count++;
 			}
 			execute(data);
@@ -83,6 +84,7 @@ void run_shell(shdata_t *data)
 			}
 			execute(data);
 			count++;
+			free_aop(data->args);
 			data->ps_count++;
 		}
 		free_aop(cmd_arr);

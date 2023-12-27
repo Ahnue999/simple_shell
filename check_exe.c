@@ -13,6 +13,7 @@ char *check_exe(char *filename, list_t *env)
 	char **path_dirs;
 	char **env_arr;
 	char *path, *tmp;
+	char *tmpath;
 	int i;
 	struct stat st;
 
@@ -20,9 +21,16 @@ char *check_exe(char *filename, list_t *env)
 		return (filename);
 
 	env_arr = list_to_array(env);
-	path = _getenv("PATH", env_arr);
+	tmpath = _getenv("PATH", env_arr);
 	free_aop(env_arr);
+	if (!tmpath)
+		return (NULL);
+	i = 0;
+	while (tmpath[i] != '=' && tmpath[i] != '\0')
+		i++;
+	path = (tmpath + i);
 	path_dirs = split_string(path, ":");
+	free(tmpath);
 
 	i = 0;
 	while (path_dirs[i])

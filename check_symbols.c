@@ -56,7 +56,7 @@ char **check_symbols(char *str, shdata_t *data)
 char *expand(char *str, int *i, char to_expand, shdata_t *data)
 {
 	char *before, *after, *new = "", *var_name, *var_value, *tmp;
-	char **env_arr;
+	char **env_arr, *tmp_var;
 	int len, j;
 
 	before = _strdup(str);
@@ -89,18 +89,19 @@ char *expand(char *str, int *i, char to_expand, shdata_t *data)
 				var_name[j] = str[*i + 1 + j], j++;
 			var_name[j] = '\0';
 			env_arr = list_to_array(data->sh_env);
-			var_value = _getenv(var_name, env_arr);
-			free_aop(env_arr);
-			if (var_value == NULL)
+			tmp_var = _getenv(var_name, env_arr);
+			if (tmp_var == NULL)
 				var_value = "";
+			else
+				var_value = (tmp_var + len + 1);
+			free_aop(env_arr);
 			new = strcat_alloc(new, var_value);
 			new = strcat_alloc(new, after);
 			i += _strlen(var_value);
 			free(var_name);
 	}
-	
 	 free(before);
 	 free(tmp);
-	 
+	 free(tmp_var);
 	return (new);
 }
