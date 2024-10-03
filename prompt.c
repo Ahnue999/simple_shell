@@ -14,8 +14,8 @@ void prompt(void)
 	length = 0;
 	while (cwd[length])
 		length++;
-	write(STDOUT_FILENO, cwd, length);
-	write(STDOUT_FILENO, "(^~^) ", 6);
+	/*write(STDOUT_FILENO, cwd, length);*/
+	write(STDOUT_FILENO, "($) ", 4);
 	fflush(stdout);
 	free(cwd);
 }

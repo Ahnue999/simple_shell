@@ -23,7 +23,7 @@ int execute(shdata_t *data)
 	{
 		data->status = 127;
 		print_errors(data);
-		free(exe_path);
+		/*free(exe_path);*/
 		free_aop(env_arr);
 		return (127);
 	}
@@ -40,7 +40,8 @@ int execute(shdata_t *data)
 		default:
 			wait(&child_state);
 	}
-	free(exe_path);
+	if (strcmp(exe_path, data->args[0]) != 0)
+		free(exe_path);
 	free_aop(env_arr);
 	return (0);
 }

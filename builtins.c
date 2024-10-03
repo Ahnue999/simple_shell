@@ -40,6 +40,9 @@ int (*get_builtin(shdata_t *data))(shdata_t *)
  */
 int builtin_exit(shdata_t *data)
 {
+	free_list(&(data->sh_env));
+	free_aop(data->argvs);
+	free_aop(data->args);
 	_exit(data->status);
 }
 
