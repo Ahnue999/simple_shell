@@ -82,7 +82,7 @@ char *expand(char *str, int *i, char to_expand, shdata_t *data)
 			break;
 		case 'v':
 			len = j = 0;
-			while (str[*i + 1 + len] != ' ' && str[*i + 1 +len] != '\n')
+			while (str[*i + 1 + len] != ' ' && str[*i + 1 + len] != '\n')
 				len++;
 			var_name = malloc(sizeof(char) * len + 1);
 			while (j < len)
@@ -100,8 +100,8 @@ char *expand(char *str, int *i, char to_expand, shdata_t *data)
 			i += _strlen(var_value);
 			free(var_name);
 	}
-	 free(before);
-	 free(tmp);
-	 free(tmp_var);
+	free(before);
+	free(tmp);
+	free(tmp_var);
 	return (new);
 }

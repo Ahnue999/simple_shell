@@ -42,10 +42,10 @@ void print_errors(shdata_t *data)
 	{
 		perror("Memory allocation failed!\n");
 
-		  free(filename);
-		  free(command);
-		  free(ps);
-		 
+		free(filename);
+		free(command);
+		free(ps);
+
 		return;
 	}
 	massage[0] = '\0';
@@ -59,9 +59,9 @@ void print_errors(shdata_t *data)
 	massage = strcat(massage, "not found\n");
 
 	write(STDOUT_FILENO, massage, _strlen(massage));
-	
-	  free(massage);
-	  free(filename);
-	  free(command);
-	  free(ps);
+
+	free(massage);
+	free(filename);
+	free(command);
+	free(ps);
 }
