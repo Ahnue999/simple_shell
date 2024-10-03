@@ -48,9 +48,8 @@ char *_getenv(const char *name, char **env_arr)
  */
 int builtin_setenv(shdata_t *data)
 {
-	char *name, *value;
+	char *name, *value, *new;
 	int index;
-	char *new;
 	char **env_arr;
 
 	if (!data->args[1] || !data->args[2])
@@ -59,14 +58,11 @@ int builtin_setenv(shdata_t *data)
 		data->status = 2;
 		return (-1);
 	}
-
 	name = _strdup(data->args[1]);
 	value = _strdup(data->args[2]);
-
 	env_arr = list_to_array(data->sh_env);
 	index = search_array(name, env_arr);
 	free_aop(env_arr);
-
 	new = malloc(sizeof(char) * 1024);
 	if (!new)
 	{
@@ -74,15 +70,11 @@ int builtin_setenv(shdata_t *data)
 		free(value);
 		return (-1);
 	}
-
 	strcat(new, name);
 	strcat(new, "=");
 	strcat(new, value);
-
 	if (index == -1)
-	{
 		add_node_end(&(data->sh_env), new);
-	}
 	else
 	{
 		if (data->setenv_flag)

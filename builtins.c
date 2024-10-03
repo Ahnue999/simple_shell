@@ -76,9 +76,7 @@ int builtin_env(shdata_t *data)
  */
 int builtin_cd(shdata_t *data)
 {
-	char *home, *oldpwd;
-	char *tmphome, *tmpold;
-	char *cwd;
+	char *home, *oldpwd, *tmphome, *tmpold, *cwd;
 	char **env_arr;
 	int status, i;
 
