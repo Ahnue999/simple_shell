@@ -23,7 +23,7 @@ int non_interactive(shdata_t *data)
 		{
 			data->args = split_string(cmd_arr[count], "\n ");
 			func = get_builtin(data);
-			if (func != NULL)
+			if (func)
 			{
 				data->status = 0;
 				if (data->args[1])
@@ -84,7 +84,7 @@ void run_shell(shdata_t *data)
 			}
 			execute(data);
 			count++;
-			free_aop(data->args);
+			//free_aop(data->args);
 			data->ps_count++;
 		}
 		free_aop(cmd_arr);
