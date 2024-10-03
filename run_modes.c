@@ -84,7 +84,7 @@ void run_shell(shdata_t *data)
 			}
 			execute(data);
 			count++;
-			//free_aop(data->args);
+			free_aop(data->args);
 			data->ps_count++;
 		}
 		free_aop(cmd_arr);
