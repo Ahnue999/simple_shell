@@ -40,7 +40,7 @@ int execute(shdata_t *data)
 		default:
 			wait(&child_state);
 	}
-	if (strcmp(exe_path, data->args[0]) != 0)
+	if (_strcmp(exe_path, data->args[0]) != 0)
 		free(exe_path);
 	free_aop(env_arr);
 	return (0);
