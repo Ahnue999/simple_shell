@@ -12,10 +12,13 @@ void print_errors(shdata_t *data)
 	char *filename, *command, *massage;
 	char *ps;
 	int i, length;
+	char *tmp;
 
 	filename = _strdup(data->argvs[0]);
 	command = _strdup(data->args[0]);
-	ps = _strdup(itos(data->ps_count));
+	tmp = itos(data->ps_count);
+	ps = _strdup(tmp);
+	free(tmp);
 	if (filename == NULL || command == NULL || ps == NULL)
 	{
 		free(filename);
